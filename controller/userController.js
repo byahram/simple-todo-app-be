@@ -10,7 +10,7 @@ userController.createUser = async (req, res) => {
     const { email, name, password } = req.body;
 
     // 유저가 있는지 check
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ email });
     if (user) {
       throw new Error("이미 가입된 사용자입니다.");
     }
@@ -22,7 +22,7 @@ userController.createUser = async (req, res) => {
 
     res.status(200).json({ status: "success" });
   } catch (err) {
-    res.status(400).json({ status: "fail", error: err });
+    res.status(400).json({ status: "fail", message: err.message });
   }
 };
 
@@ -38,9 +38,10 @@ userController.loginWithEmail = async (req, res) => {
         return res.status(200).json({ status: "success", user, token });
       }
     }
+
     throw new Error("아이디 또는 비밀번호가 일치하지 않습니다.");
-  } catch (error) {
-    res.status(400).json({ status: "fail", message: error.message });
+  } catch (err) {
+    res.status(400).json({ status: "fail", message: err.message });
   }
 };
 
