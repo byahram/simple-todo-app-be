@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controller/userController");
+const authController = require("../controller/authController");
 
 // 1. 회원가입 endpoint
 // 유저가 이메일, 패스워드, 유저이름 입력해서 보냄
@@ -28,5 +29,8 @@ router.post("/", userController.createUser);
 // (6) 틀리면 에러메세지 보냄
 // (7) 응답으로 유저정보 + 토큰 보냄
 router.post("/login", userController.loginWithEmail);
+
+// 토큰을 통해 유저 id빼내고 그 아이디로 유저 객체 찾아서 보내주기
+router.get("/me", authController.authenticate, userController.getUser);
 
 module.exports = router;

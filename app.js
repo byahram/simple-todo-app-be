@@ -11,8 +11,8 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use("/api", indexRouter);
 
-// const mongoURI = `mongodb://localhost:27017/simple-todo-app`;
-const mongoURI = process.env.MONGODB_URI_PROD;
+const mongoURI = `mongodb://localhost:27017/simple-todo-app`;
+// const mongoURI = process.env.MONGODB_URI_PROD;
 
 mongoose
   .connect(mongoURI)
